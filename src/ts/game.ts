@@ -3,6 +3,8 @@ import {Graphics} from "./graphics";
 import {RoundMonster} from './roundMonster';
 import {GameMonster} from "./gameMonster";
 import {SquareMonster} from "./squareMonster";
+import {elementRandomGenerator} from "./generator";
+import {Monster} from "./monster";
 
 export class Game {
 
@@ -11,12 +13,22 @@ export class Game {
 	monsters:GameMonster[];
 	interval:number;
 	intervalHandler;
+	monstersFactoryGenerator:Iterator<MonsterFactory>;
 
 	constructor(n, m) {
 		this.board = new Board(n, m);
 		this.graphics = new Graphics('board');
 		this.monsters = [];
 		this.interval = 500;
+		var availableMonsterFactories = [
+			function () {
+				return new RoundMonster();
+			},
+			function () {
+				return new SquareMonster();
+			}
+		];
+		this.monstersFactoryGenerator = elementRandomGenerator(availableMonsterFactories);
 	}
 
 	start() {
@@ -25,7 +37,6 @@ export class Game {
 		this.createMonster();
 		this.createMonster();
 		this.createMonster();
-		this.createSquareMonster();
 		var that = this;
 		this.intervalHandler = setInterval(function () {
 			that.updateGame();
@@ -37,10 +48,6 @@ export class Game {
 		this.redraw();
 	}
 
-	private redraw() {
-		this.graphics.draw(this.board, this.monsters);
-	}
-
 	updateMonsters() {
 		var that = this;
 		this.monsters.forEach(function (gameMonster) {
@@ -50,7 +57,7 @@ export class Game {
 	}
 
 	createMonster() {
-		var monster = new RoundMonster();
+		var monster = (<MonsterFactory>this.monstersFactoryGenerator.next().value)(this);
 		var gameMonster = new GameMonster(monster, {
 			x: 0,
 			y: 0
@@ -58,12 +65,11 @@ export class Game {
 		this.monsters.push(gameMonster);
 	}
 
-	createSquareMonster() {
-		var monster = new SquareMonster();
-		var gameMonster = new GameMonster(monster, {
-			x: 0,
-			y: 0
-		});
-		this.monsters.push(gameMonster);
+	private redraw() {
+		this.graphics.draw(this.board, this.monsters);
 	}
+}
+
+interface MonsterFactory {
+	():Monster;
 }

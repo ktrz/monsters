@@ -1,9 +1,8 @@
-import {Game} from "./game";
-
 $(document).ready(function () {
 	var n = 5, m = 5;
 	var nInput = $('#nValue');
 	var mInput = $('#mValue');
+	var game;
 	nInput.val(n);
 	mInput.val(m);
 	nInput.on('input', function () {
@@ -12,7 +11,6 @@ $(document).ready(function () {
 	mInput.on('input', function () {
 		m = mInput.val();
 	});
-	var game;
 	$('#start').on('click', function () {
 		$('#board').html('');
 		game = new Game(n, m);

@@ -2,8 +2,8 @@ import {Monster} from "./monster";
 import {elementRandomGenerator} from "./generator";
 
 export class SquareMonster extends Monster {
-	moveGenerator:any;
-	availableMoves;
+	moveGenerator:Iterator<any>;
+	availableMoves:any[];
 	constructor() {
 		super('Square', 'square', 5, 2);
 		this.availableMoves = [{

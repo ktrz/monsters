@@ -6,5 +6,8 @@
 	},
 	"devDependencies": {
 		"typescript": ""
+	},
+	"scripts": {
+		"postinstall": "typings install && tsc && exit 0"
 	}
 }
