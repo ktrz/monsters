@@ -1,0 +1,101 @@
+@keyframes move-down {
+	from {
+		transform: translateY(calc(-100% - 22px));
+	}
+	to {
+		transform: translateY(0);
+	}
+}
+
+@keyframes move-up {
+	from {
+		transform: translateY(calc(100% + 22px));
+	}
+	to {
+		transform: translateY(0);
+	}
+}
+
+@keyframes move-left {
+	from {
+		transform: translateX(calc(100% + 22px));
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+@keyframes move-right {
+	from {
+		transform: translateX(calc(-100% - 22px));
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+#board {
+	height: 90vh;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.row {
+	display: flex;
+	flex: 1 0;
+}
+
+.field {
+	display: flex;
+	flex: 1 0 auto;
+	border: 1px solid gray;
+	padding: 10px;
+	flex-wrap: wrap;
+}
+
+.row:nth-child(odd) .field:nth-child(odd),
+.row:nth-child(even) .field:nth-child(even) {
+	background: lightgray;
+}
+
+.row:nth-child(odd) .field:nth-child(even),
+.row:nth-child(even) .field:nth-child(odd) {
+	background: white;
+}
+
+.monster-round {
+	flex: 1 1;
+	min-width: 50%;
+	background: url('./images/round.jpg') no-repeat center;
+	background-size: 50px;
+	border-radius: 50%;
+}
+
+.monster-square {
+	flex: 1 1;
+	min-width: 50%;
+	background: url('./images/square.jpg') no-repeat center;
+	background-size: 50px;
+	border-radius: 50%;
+}
+
+.monster.move-down {
+	animation-name: move-down;
+	animation-duration: 500ms;
+}
+
+.monster.move-up {
+	animation-name: move-up;
+	animation-duration: 500ms;
+}
+
+.monster.move-left {
+	animation-name: move-left;
+	animation-duration: 500ms;
+}
+
+.monster.move-right {
+	animation-name: move-right;
+	animation-duration: 500ms;
+}

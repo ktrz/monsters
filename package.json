@@ -1,0 +1,10 @@
+{
+	"name": "monsters",
+	"dependencies": {
+		"jquery": "",
+		"systemjs": ""
+	},
+	"devDependencies": {
+		"typescript": ""
+	}
+}
